@@ -1,15 +1,21 @@
+# Use a base image
 FROM ubuntu:latest
+
+# Update and install necessary packages
 RUN apt-get update && apt-get install -y \
   python3.10 \
   python3-pip \
   git
 
-RUN pip3 install PyYAML 
+# Install Python package
+RUN pip3 install PyYAML
 
+# Copy necessary files into the container
 COPY feed.py /usr/bin/feed.py
-
 COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
 # Make the entrypoint script executable
 RUN chmod +x /entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/entrypoint.sh"]

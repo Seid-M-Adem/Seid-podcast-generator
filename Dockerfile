@@ -1,13 +1,16 @@
-# Use a Python base image
-FROM python:3.10-slim
+# Use a base image
+FROM ubuntu:latest
 
-# Install necessary packages
+# Update and install necessary packages
 RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3-pip \
+    python3-venv \
     git \
     build-essential
 
 # Install PyYAML
-RUN pip install PyYAML
+RUN apt-get install -y python3-yaml
 
 # Copy necessary files into the container
 COPY feed.py /usr/bin/feed.py
@@ -18,4 +21,6 @@ RUN chmod +x /entrypoint.sh
 
 # Set the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
+
+
 
